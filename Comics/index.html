@@ -87,6 +87,7 @@
     
 </head>
 <body>
+    <div id="navbar-container"></div>
     <h1>Visor de Cómics</h1>
 
     <!-- Selector de idioma -->
@@ -120,6 +121,24 @@
         let comicName = "comic1";
         let language = "es";
         let trackId = "";
+
+        // Función para incluir la barra de navegación
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("../navbar.html") // Subimos un nivel para encontrar la barra
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("navbar-container").innerHTML = data;
+
+                    // Reaplicar estilos si no se han cargado
+                    let styles = document.createElement("link");
+                    styles.rel = "stylesheet";
+                    styles.href = "../styles.css"; // Ajusta la ruta si es necesario
+                    document.head.appendChild(styles);
+                })
+                .catch(error => console.error("Error cargando la barra de navegación:", error));
+        });
+    
 
         // Escuchar cambios en el selector de idioma
         document.getElementById("language").addEventListener("change", function() {
